@@ -1,6 +1,6 @@
 # Im2col SIMD for 2D Tensors
 
-A **SIMD-optimized** implementation of the im2col operation for 2D images (e.g., grayscale). This repository provides C++ source code targeting **AVX2** (x86_64) and **NEON** (Armv8) architectures, as well as a **reference** (non-SIMD) implementation. You can integrate the resulting library into your own C++ project or access it from Python through a simple ctypes wrapper.
+A **SIMD-optimized** implementation of the im2col operation for 2D images (e.g., grayscale). This repository provides C++ source code targeting **AVX2** (x86_64) and **NEON** (Armv8) architectures, as well as a **reference** (non-SIMD) implementation. You can integrate the resulting library into your own C++ project or access it from Python through a simple Ctypes wrapper.
 
 ![im2col](./img.webp)
 
@@ -10,7 +10,9 @@ The **im2col** (“image to column”) operation is commonly used in convolution
 By taking advantage of **SIMD intrinsics**, we can significantly speed up the im2col computation on CPUs that support vector operations. This repository includes:
 - **AVX2** implementation for modern x86_64 processors  
 - **NEON** implementation for Armv8 processors  
-- **Reference** scalar implementation (no intrinsics) for portability or as a fallback  
+- **Reference** scalar implementation (no intrinsics) for portability or as a fallback
+
+The repository also contains a Python wrapper and a Jupyter Notebook that can be used as an example on how to use the library in Python.
 
 ## Installation
 
