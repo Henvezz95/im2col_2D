@@ -38,28 +38,38 @@ extern "C" DLL_PUBLIC void im2col(float* __restrict  input_img,
     __m256 source_vector;              // AVX register
     int numBlocks = (colBlock + 7) / 8; 
     if(numBlocks==1){
+    // ======================================================
+    // Case 1: numBlocks == 1  ==> colBlock <= 8
+    // Only 1 load/store of 8 floats per row-block
+    // ======================================================
       for (int i = 0; i < yB; i++) {     // Slide over height
               for (int j = 0; j < xB; j++) { // Slide over width
                   for (int k = 0; k < rowBlock; k++) { // Row blocks
                       int input_offset = (i + k) * width + j;  // Input offset
-                      int output_offset = (i * xB * k_size) + (j * k_size) + (k * colBlock); // Output offset
+                      int output_offset = (i * xB * k_size) 
+                                        + (j * k_size) 
+                                        + (k * colBlock); // Output offset
                       source_vector = _mm256_loadu_ps(&input_img[input_offset]);
                       _mm256_storeu_ps(&outTensor[output_offset], source_vector);
                   }
               }
     }
     }else{
+    // ======================================================
+    // Case 2: numBlocks > 2  ==> colBlock > 8
+    // We do numBlocks loads/stores in a small inner loop.
+    // Each block = 8 floats.
+    // ======================================================
       for (int i = 0; i < yB; i++) {     // Slide over height
           for (int j = 0; j < xB; j++) { // Slide over width
               for (int k = 0; k < rowBlock; k++) { // Row blocks
                   int input_offset = (i + k) * width + j;  // Input offset
-                  int output_offset = (i * xB * k_size) + (j * k_size) + (k * colBlock); // Output offset
+                  int output_offset = (i * xB * k_size) 
+                                    + (j * k_size) 
+                                    + (k * colBlock); // Output offset
 
                   for (int l = 0; l < numBlocks; l++) { // Process each 8-float block
-                      // Load 8 floats from input
                       source_vector = _mm256_loadu_ps(&input_img[input_offset + l * 8]);
-                      
-                      // Store 8 floats to output
                       _mm256_storeu_ps(&outTensor[output_offset + l * 8], source_vector);
                   }
               }
