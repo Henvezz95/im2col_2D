@@ -18,7 +18,7 @@ The repository also contains a Python wrapper and a Jupyter Notebook that can be
 
 1. **Clone** this repository:
    ```bash
-   git clone [https://github.com/yourusername/im2col-simd.git](https://github.com/Henvezz95/im2col_2D.git)
+   git clone https://github.com/Henvezz95/im2col_2D.git
    cd im2col-simd
    ```
 
