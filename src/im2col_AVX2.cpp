@@ -42,13 +42,13 @@ extern "C" DLL_PUBLIC void im2col(float* __restrict  input_img,
     // Case 1: numBlocks == 1  ==> colBlock <= 8
     // Only 1 load/store of 8 floats per row-block
     // ======================================================
-      for (int i = 0; i < yB; i++) {     // Slide over height
-              for (int j = 0; j < xB; j++) { // Slide over width
-                  for (int k = 0; k < rowBlock; k++) { // Row blocks
-                      int input_offset = (i + k) * width + j;  // Input offset
+      for (int i = 0; i < yB; i++) {     
+              for (int j = 0; j < xB; j++) { 
+                  for (int k = 0; k < rowBlock; k++) { 
+                      int input_offset = (i + k) * width + j;  
                       int output_offset = (i * xB * k_size) 
                                         + (j * k_size) 
-                                        + (k * colBlock); // Output offset
+                                        + (k * colBlock); 
                       source_vector = _mm256_loadu_ps(&input_img[input_offset]);
                       _mm256_storeu_ps(&outTensor[output_offset], source_vector);
                   }
@@ -60,13 +60,13 @@ extern "C" DLL_PUBLIC void im2col(float* __restrict  input_img,
     // We do numBlocks loads/stores in a small inner loop.
     // Each block = 8 floats.
     // ======================================================
-      for (int i = 0; i < yB; i++) {     // Slide over height
-          for (int j = 0; j < xB; j++) { // Slide over width
-              for (int k = 0; k < rowBlock; k++) { // Row blocks
-                  int input_offset = (i + k) * width + j;  // Input offset
+      for (int i = 0; i < yB; i++) {     
+          for (int j = 0; j < xB; j++) { 
+              for (int k = 0; k < rowBlock; k++) { 
+                  int input_offset = (i + k) * width + j;  
                   int output_offset = (i * xB * k_size) 
                                     + (j * k_size) 
-                                    + (k * colBlock); // Output offset
+                                    + (k * colBlock); 
 
                   for (int l = 0; l < numBlocks; l++) { // Process each 8-float block
                       source_vector = _mm256_loadu_ps(&input_img[input_offset + l * 8]);

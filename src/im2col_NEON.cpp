@@ -50,7 +50,7 @@ extern "C" void im2col(
             for (int j = 0; j < xB; j++) {
                 for (int k = 0; k < rowBlock; k++) {
                     int input_offset =
-                        (i + k) * width + j;  // Input offset
+                        (i + k) * width + j;  
                     int output_offset =
                         (i * xB * k_size) + (j * k_size) + (k * colBlock);
 
