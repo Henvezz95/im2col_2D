@@ -12,4 +12,33 @@ By taking advantage of **SIMD intrinsics**, we can significantly speed up the im
 - **NEON** implementation for Armv8 processors  
 - **Reference** scalar implementation (no intrinsics) for portability or as a fallback  
 
+## Installation
 
+1. **Clone** this repository:
+   ```bash
+   git clone [https://github.com/yourusername/im2col-simd.git](https://github.com/Henvezz95/im2col_2D.git)
+   cd im2col-simd
+   ```
+
+2. Configure and build with CMake:
+   ```bash
+    mkdir build && cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    cmake --build .
+   ```
+   CMake will detect your CPU architecture and automatically compile the corresponding SIMD implementation (AVX2, NEON, or reference).
+
+3. After building, you should find a shared library (e.g., libim2col.so on Linux or im2col.dll on Windows) in your build folder.
+
+## Folder Structure
+   ```graphql
+    im2col-simd/
+    ├── CMakeLists.txt        # Main CMake build script
+    ├── src/
+    │   ├── im2col_AVX2.cpp   # AVX2 implementation
+    │   ├── im2col_NEON.cpp   # NEON implementation
+    │   └── im2col_ref.cpp    # Reference (fallback) implementation
+    ├── python/
+    │   └── im2col.py         # Python ctypes wrapper
+    ├── Test Notebook.ipynb   # Jupyter Notebook example
+   ```
