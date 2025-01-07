@@ -19,7 +19,7 @@ The repository also contains a Python wrapper and a Jupyter Notebook that can be
 1. **Clone** this repository:
    ```bash
    git clone https://github.com/Henvezz95/im2col_2D.git
-   cd im2col-simd
+   cd im2col_2D
    ```
 
 2. Configure and build with CMake:
@@ -34,7 +34,7 @@ The repository also contains a Python wrapper and a Jupyter Notebook that can be
 
 ## Folder Structure
    ```graphql
-    im2col-simd/
+    im2col_2D/
     ├── CMakeLists.txt        # Main CMake build script
     ├── src/
     │   ├── im2col_AVX2.cpp   # AVX2 implementation
