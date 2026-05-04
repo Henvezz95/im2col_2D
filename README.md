@@ -2,6 +2,10 @@
 
 A **SIMD-optimized** implementation of the im2col operation for 2D images (e.g., grayscale). This repository provides C++ source code targeting **AVX2** (x86_64) and **NEON** (Armv8) architectures, as well as a **reference** (non-SIMD) implementation. You can integrate the resulting library into your own C++ project or access it from Python through a simple Ctypes wrapper.
 
+> Core utility developed for [Mosaic-SR](https://github.com/Henvezz95/mosaic-sr) — 
+> used in production to accelerate patch extraction for the super-resolution 
+> pipeline on Arm CPU targets without GPU support.
+
 ![im2col](./img.webp)
 
 ## Overview
