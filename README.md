@@ -48,3 +48,14 @@ The repository also contains a Python wrapper and a Jupyter Notebook that can be
     │   └── im2col.py         # Python ctypes wrapper
     ├── Test Notebook.ipynb   # Jupyter Notebook example
    ```
+
+## Implementation Notes
+- **Architecture-aware dispatch:** each implementation is tuned to its 
+  register width — AVX2 (256-bit, 8 floats) uses 2 cases; NEON 
+  (128-bit, 4 floats) uses 3, with Case 2 manually unrolled for 
+  common kernel sizes (5–8 columns)
+- **Safe boundary handling:** the Python wrapper over-allocates the 
+  output tensor by `mem_tail` elements to prevent out-of-bounds reads 
+  at image edges, trimming before return
+- **Zero-copy interface:** input and output tensors are passed directly 
+  via Ctypes pointers — no intermediate copies
