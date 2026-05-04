@@ -52,7 +52,10 @@ The repository also contains a Python wrapper and a Jupyter Notebook that can be
 ## Implementation Notes
 - **Architecture-aware dispatch:** each implementation is tuned to its 
   register width — AVX2 (256-bit, 8 floats) uses 2 cases; NEON 
-  (128-bit, 4 floats) uses 3, with Case 2 manually unrolled for 
+  (128-bit, 4 floats) uses 3, with Case 2 manually unrolled for
+
+> **Note:** The current implementation supports **2D (grayscale) arrays only**. 
+> Multichannel (RGB) support via channel-stride is planned for a future release.
   common kernel sizes (5–8 columns)
 - **Safe boundary handling:** the Python wrapper over-allocates the 
   output tensor by `mem_tail` elements to prevent out-of-bounds reads 
